@@ -1,3 +1,4 @@
+from turtle import position
 import streamlit as st
 import pandas as pd
 
@@ -40,14 +41,15 @@ def view_all_users():
 def main():
 	"""Erig Sicuro Bank"""
 
-	st.title("Erig Sicuro Bank")
-
+	#st.title("Erig Sicuro Bank")
+	st.image("logo.png")
 	menu = ["Home","Login","SignUp"]
 	choice = st.sidebar.selectbox("Menu",menu)
 
 	if choice == "Home":
 		st.subheader("Home")
-
+		if st.button("Profile"):
+			st.write("In progress ... ")
 	elif choice == "Login":
 		st.subheader("Login Section")
 
@@ -65,20 +67,21 @@ def main():
 			else:
 				st.warning("Incorrect Username/Password")
 
-
-
-
-
 	elif choice == "SignUp":
-		st.subheader("Create New Account")
-		new_user = st.text_input("Username")
-		new_password = st.text_input("Password",type='password')
+			st.subheader("Create New Account")
+			new_user = st.text_input("Create  Username")
+			new_password = st.text_input("Enter Password",type='password')
+			again_password = st.text_input("Re enter the password",type='password')
+			
+			if again_password == new_password:
+				if st.button("Signup"):
+					create_usertable()
+					add_userdata(new_user,make_hashes(new_password))
+					st.success("You have successfully created a valid Account")
+					st.info("Go to Login Menu to login")
+			else:
+				st.warning("Passwords Don't match!")
 
-		if st.button("Signup"):
-			create_usertable()
-			add_userdata(new_user,make_hashes(new_password))
-			st.success("You have successfully created a valid Account")
-			st.info("Go to Login Menu to login")
 
 
 
